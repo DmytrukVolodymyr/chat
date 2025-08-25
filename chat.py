@@ -7,7 +7,7 @@ from tkinter import filedialog
 
 
 class MainWindow(CTk):
-    def __init__(self):
+    def __init__(self, username="Vova", server="localhost", port=22):
         super().__init__()
         self.geometry("500x400")
         self.label = None
@@ -37,7 +37,7 @@ class MainWindow(CTk):
 
         try:
             self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.socket.connect(("localhost", 22)) # заміни сервер та порт на потрібну адресу
+            self.socket.connect((server, int(port))) # заміни сервер та порт на потрібну адресу
             hello = (
                 f"TEXT@{self.username}@[SYSTEM] {self.username} підключився до чату!\n"
             )
@@ -185,8 +185,7 @@ class MainWindow(CTk):
 
 
 
-window = MainWindow()
-window.mainloop()
+
 
 
 

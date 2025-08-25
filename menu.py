@@ -1,6 +1,6 @@
 from customtkinter import *
 from PIL import Image
-
+from chat import MainWindow
 
 
 
@@ -50,23 +50,34 @@ class AuthWindow(CTk):
             text_color="#6753cc",
             placeholder_text_color="#6753cc",
         )
-        self.name_entry.pack(fill="x", padx=10)
-
-
-        self.settings_button = CTkButton(
+        self.name_entry.pack(fill="x", padx=10,pady=5)
+        self.server_entry = CTkEntry(
             self.right_frame,
-            text="Налаштування",
+            placeholder_text="сервер",
             height=45,
+            font=main_font,
             corner_radius=25,
             fg_color="#eae6ff",
-            font=main_font,
+            border_color="#eae6ff",
             text_color="#6753cc",
-            image=CTkImage(Image.open("setting.png"), size=(20, 20)),
-            compound='left'
+            placeholder_text_color="#6753cc",
         )
-        self.settings_button.pack(fill="x", padx=10, pady=5)
+        self.server_entry.pack(fill="x", padx=10)
+        self.port_entry = CTkEntry(
+            self.right_frame,
+            placeholder_text="порт",
+            height=45,
+            font=main_font,
+            corner_radius=25,
+            fg_color="#eae6ff",
+            border_color="#eae6ff",
+            text_color="#6753cc",
+            placeholder_text_color="#6753cc",
+        )
+        self.port_entry.pack(fill="x", padx=10,pady=5)
 
 
+        
         self.connect_button = CTkButton(
             self.right_frame,
             text="УВІЙТИ",
@@ -74,10 +85,25 @@ class AuthWindow(CTk):
             corner_radius=25,
             fg_color="#230f94",
             font=main_font,
-            text_color="white"
+            text_color="white",
+            command=self.connect,
         )
         self.connect_button.pack(fill="x", padx=50, pady=10)
-
+    def connect(self):
+        username = self.name_entry.get()
+        server = self.server_entry.get()
+        port = self.port_entry.get()
+        if not username or not server or not port:
+            CTkLabel(
+                self.right_frame,
+                text="Всі поля повинні бути заповнені!",
+                text_color="red",
+                font=("Helvetica", 12, "bold"),
+            ).pack()
+            return
+        self.destroy()
+        window = MainWindow(username, server, port)
+        window.mainloop()
 
 
 
