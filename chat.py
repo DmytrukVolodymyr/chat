@@ -37,7 +37,7 @@ class MainWindow(CTk):
 
         try:
             self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.socket.connect(("localhost", 22))
+            self.socket.connect(("localhost", 22)) # заміни сервер та порт на потрібну адресу
             hello = (
                 f"TEXT@{self.username}@[SYSTEM] {self.username} підключився до чату!\n"
             )
